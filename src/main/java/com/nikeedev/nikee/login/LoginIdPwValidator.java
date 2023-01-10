@@ -18,6 +18,7 @@ public class LoginIdPwValidator implements UserDetailsService {
 	@Autowired
     private MemberMapper memberMapper;
 
+	// DB의 pw(암호화된)와 유저가 입력한 pw를 암호화하여 자동으로 비교
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -30,7 +31,7 @@ public class LoginIdPwValidator implements UserDetailsService {
 		MemberDTO mdto = memberMapper.getMemberById(insertedId);
 	        
 	        if (mdto == null) {
-	            return null;
+	            return null; // ID 혹은 PW가 잘못되었습니다.
 	        }
 	        
 	        String passwd = mdto.getMem_passwd(); //"d404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db"
