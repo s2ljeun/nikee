@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nikeedev.nikee.dto.memberMapper">
+	<select id="listAllMember" resultType="memberDTO">
+		select * from member
+	</select>
+	
+	<select id="getMemberByNo" resultType="memberDTO" parameterType="Integer">
+		select * from member where mem_no = #{mem_no}
+	</select>
+	
+	<select id="getMemberById" resultType="memberDTO" parameterType="String">
+		select * from member where mem_id = #{insertedId}
+	</select>
+	
+	<update id="updateMember" parameterType="memberDTO">
+		update member set mem_id = #{mem_id}, mem_name = #{mem_name} where mem_no = #{mem_no}
+	</update>
+	
+	<insert id="insertMember" parameterType="memberDTO">
+		insert into member set mem_id = #{mem_id}, mem_passwd = #{mem_passwd},
+		mem_name = #{mem_name}, mem_email = #{mem_email}, mem_regdate = now(),
+		kakao = 0, mem_role = 'member'
+	</insert>
+	
+</mapper> 	
+ 	

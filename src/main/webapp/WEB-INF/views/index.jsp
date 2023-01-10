@@ -14,5 +14,7 @@
 </head>
 <body>
 <h1>인덱스 페이지</h1>
+<a href="/admin">어드민 페이지</a>
+<a href="/join">회원가입</a>
 </body>
 </html>
