@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.nikeedev.nikee.dto.CategoryDTO;
 import com.nikeedev.nikee.dto.MemberDTO;
+import com.nikeedev.nikee.service.CategoryMapper;
 import com.nikeedev.nikee.service.MemberMapper;
 
 @Controller
@@ -20,14 +22,48 @@ public class AdminController {
 	@Autowired
     private MemberMapper memberMapper;
 	
+	@Autowired
+	private CategoryMapper categoryMapper;
+	
 	@GetMapping("/admin")
 	public String goAdmin() {
 		return "admin/index";
 	}
 	
+	@GetMapping("/category")
+	public String goCategory(HttpServletRequest req) {
+		List<CategoryDTO> list = categoryMapper.getAllCategory();
+		req.setAttribute("allCateList", list);
+		return "admin/category_list";
+	}
+	
+	@GetMapping("/category/insert")
+	public String goInsertCategory() {
+		return "admin/category_insert";
+	}
+	
+	@PostMapping("/category/insert")
+	public String insertCategory(HttpServletRequest req, @ModelAttribute CategoryDTO cdto) {
+		int res = categoryMapper.insertCategory(cdto);
+		if(res > 0) {
+			req.setAttribute("msg", "카테고리 추가가 완료되었습니다.");
+			req.setAttribute("url", "/category");
+		}else {
+			req.setAttribute("msg", "카테고리 추가를 실패했습니다.");
+			req.setAttribute("url", "/category");
+		}
+		
+		return "message";
+	}
+	
 	@GetMapping("/products")
 	public String goProductList() {
 		return "admin/product_list";
+	}
+	
+	@GetMapping("/products/insert")
+	public String goProductInsert() {
+		return "admin/product_insert";
 	}
 	
 	@GetMapping("/order")

@@ -20,6 +20,7 @@
 			<thead>
 				<tr align="center">
 					<th scope="col">상품번호</th>
+					<th scope="col">카테고리</th>
 					<th scope="col">상품명</th>
 					<th scope="col">재고</th>
 					<th scope="col">원가</th>
@@ -33,6 +34,7 @@
 			<tbody>
 				<tr align="center">
 					<td>101</td>
+					<td>신발</td>
 					<td>에어포스 1'07</td>
 					<td>22</td>
 					<td>80,000</td>
@@ -48,6 +50,7 @@
 				</tr>
 				<tr align="center">
 					<td>102</td>
+					<td>셔츠</td>
 					<td>에어포스 1'07</td>
 					<td>0</td>
 					<td>80,000</td>
@@ -64,6 +67,7 @@
 			</tbody>
 		</table>
 	</div>
+	<button onclick="location.href='/products/insert'" class="btn btn-sm btn-outline-secondary">상품 등록</button>
 </main>
 </body>
 </html>
