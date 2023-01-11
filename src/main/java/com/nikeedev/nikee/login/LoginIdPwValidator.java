@@ -26,16 +26,15 @@ public class LoginIdPwValidator implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String insertedId) throws UsernameNotFoundException {
-		// 사용자가 입력한 id가 인자로 들어옴
-		// 유저id로 DTO꺼내오기
+		// 사용자가 입력한 id가 인자로 들어옴 -> 유저id로 DTO꺼내오기
 		MemberDTO mdto = memberMapper.getMemberById(insertedId);
 	        
 	        if (mdto == null) {
-	            return null; // ID 혹은 PW가 잘못되었습니다.
+	            return null; // ID 혹은 PW가 잘못되었습니다.	            
 	        }
 	        
-	        String passwd = mdto.getMem_passwd(); //"d404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db"
-	        String roles = mdto.getMem_role(); //"USER"
+	        String passwd = mdto.getMem_passwd();
+	        String roles = mdto.getMem_role();
 
 	        return User.builder()
 	                .username(insertedId)

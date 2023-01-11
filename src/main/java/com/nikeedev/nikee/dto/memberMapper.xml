@@ -23,7 +23,7 @@
 	<insert id="insertMember" parameterType="memberDTO">
 		insert into member set mem_id = #{mem_id}, mem_passwd = #{mem_passwd},
 		mem_name = #{mem_name}, mem_email = #{mem_email}, mem_regdate = now(),
-		kakao = 0, mem_role = 'member'
+		kakao = 0, mem_role = 'MEMBER'
 	</insert>
 	
 </mapper> 	
