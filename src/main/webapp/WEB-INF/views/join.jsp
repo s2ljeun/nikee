@@ -15,7 +15,7 @@
 </head>
 <body class="text-center">
 	<main class="form-signin w-100 m-auto">
-		<form name="f" action="/join" method="POST">
+		<form name="f" id="joinForm" action="/join" method="POST">
 			<a href="/index"> <img class="mb-4" src="/resources/icon/shop.svg" alt="" width="72" height="57">
 			</a>
 			<h1 class="h3 mb-3 fw-normal">회원가입</h1>
@@ -35,9 +35,9 @@
 				<input name="mem_name" type="text" class="form-control" id="floatingName" placeholder="홍길동"> <label for="floatingName">이름</label>
 			</div>
 			<div class="form-floating">
-				<input name="mem_email" type="text" class="form-control" id="floatingEmail" placeholder="홍길동"> <label for="floatingEmail">이메일</label>
+				<input name="mem_email" type="text" class="form-control" id="floatingEmail" placeholder="name@example.com"> <label for="floatingEmail">이메일</label>
 			</div>
-			<button class="w-100 btn btn-lg btn-primary mb-2" type="submit">가입</button>
+			<button onclick="submitForm()" class="w-100 btn btn-lg btn-primary mb-2" type="button">가입</button>
 			<button onclick="location.href='/index'" class="w-100 btn btn-lg btn-light" type="button">돌아가기</button>
 			</div>
 		</form>
@@ -59,6 +59,38 @@
 				confirmMsg.style.color = wrongColor;
 				confirmMsg.innerHTML = "비밀번호 불일치";
 			}
+		}
+		
+		//폼 제출
+		function submitForm(){
+			var id = $("#floatingInput").val();
+			var passwd = $("#floatingPassword").val();
+			var passwd_chk = $("#floatingPasswordChk").val();
+			var name = $("#floatingName").val();
+			var email = $("#floatingEmail").val();
+			if(id == ""){
+				alert("아이디를 입력해주세요.");
+				$("#floatingInput").focus();
+				return
+			}else if(passwd == ""){
+				alert("비밀번호를 입력해주세요.");
+				$("#floatingPassword").focus();
+				return
+			}else if(passwd_chk == ""){
+				alert("비밀번호 확인을 해주세요.");
+				$("#floatingPasswordChk").focus();
+				return
+			}else if(name == ""){
+				alert("이름을 입력해주세요.");
+				$("#floatingName").focus();
+				return
+			}else if(email == ""){
+				alert("이메일을 입력해주세요.");
+				$("#floatingEmail").focus();
+				return
+			}
+			
+			$("#joinForm").submit();
 		}
 	</script>
 </body>
