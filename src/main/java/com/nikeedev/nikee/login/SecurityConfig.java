@@ -33,12 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/loginProc") // 이 URI 호출시 스프링 시큐리티로 폼 정보를 제출 / form의 action
                     .usernameParameter("id") // 폼 input name값: default - username
                     .passwordParameter("passwd") // 폼 input name값: default - password
-                    .defaultSuccessUrl("/", true) //로그인 성공시 이동할 URI: default - "/"
                     .successHandler(loginSuccessHandler()) // 로그인 성공을 다룰 핸들러
                     .failureHandler(loginFailHandler()) // 로그인 실패를 다룰 핸들러
                     .permitAll()
                 .and()
                     .logout()
+                    .logoutSuccessUrl("/") // 로그아웃 성공시 이동할 URL
         			.logoutRequestMatcher(new AntPathRequestMatcher("/logoutProc")); // 이 URI 호출시 로그아웃
     }
     

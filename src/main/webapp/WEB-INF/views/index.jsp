@@ -15,7 +15,12 @@
 <body>
 <h1>인덱스 페이지</h1>
 <a href="/admin">어드민 페이지</a>
-<a href="/login">로그인</a>
+<c:if test="${empty userDetail}">
+	<a href="/login">로그인</a>
+</c:if>
+<c:if test="${not empty userDetail}">
+	<a href="/logoutProc">로그아웃</a>
+</c:if>
 <a href="/join">회원가입</a>
 </body>
 </html>
