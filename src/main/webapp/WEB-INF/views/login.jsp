@@ -56,7 +56,7 @@
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			
 			<button class="w-100 btn btn-lg btn-primary mb-2" type="submit">로그인</button>
-			<button class="w-100 btn btn-lg btn-light">회원가입</button>
+			<button onclick="location.href='/join'" class="w-100 btn btn-lg btn-light" type="button">회원가입</button>
 			<p class="mt-5 mb-3 text-muted">© 2023</p>
 		</form>
 	</main>
