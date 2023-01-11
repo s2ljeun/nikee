@@ -83,8 +83,4 @@ public class AdminController {
 		return "admin/report";
 	}
 	
-	@GetMapping("/admin/info")
-	public String goAdminInfo() {
-		return "admin/info";
-	}
 }
