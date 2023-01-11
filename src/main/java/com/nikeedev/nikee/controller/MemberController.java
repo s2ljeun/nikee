@@ -21,7 +21,6 @@ public class MemberController {
 	
 	@GetMapping("/join")
 	public String goJoin() {
-		System.out.println(loginIdPwValidator.passwordEncoder().encode("admin"));
 		return "join";
 	}
 	
