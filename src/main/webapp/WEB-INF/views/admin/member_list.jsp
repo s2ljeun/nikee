@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="top.jsp"%>
 <script>
-function confirmDel(){
+function confirmDel(mem_no){
 	if(confirm('회원을 삭제하시겠습니까?')){
-		document.getElementById('delete_form').submit();
+		$('#delete_form'+mem_no).submit();
 	}
 }
 
@@ -62,9 +62,14 @@ function goEdit(){
 							<a onclick="location.href='/members/edit/${mdto.mem_no}'">수정</a>
 						</td>
 						<td>
-							<form id="delete_form" action="/members/delete/${mdto.mem_no}" method="POST">
-								<a onclick="confirmDel()">삭제</a>
+							<c:if test="${mdto.mem_role eq 'ADMIN'}">
+								&nbsp;
+							</c:if>
+							<c:if test="${mdto.mem_role ne 'ADMIN'}">
+								<form id="delete_form${mdto.mem_no}" action="/members/delete/${mdto.mem_no}" method="POST">
+								<a onclick="confirmDel(${mdto.mem_no})">삭제</a>
 							</form>
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>

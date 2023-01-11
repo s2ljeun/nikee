@@ -32,6 +32,10 @@ public class MemberMapper {
 	public int insertMember(MemberDTO mdto) {
 		return sqlSession.insert("insertMember", mdto);
 	}
+
+	public int deleteMember(int mem_no) {
+		return sqlSession.delete("deleteMember", mem_no);
+	}
 	
 
 }

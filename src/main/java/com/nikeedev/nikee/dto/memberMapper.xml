@@ -26,5 +26,9 @@
 		kakao = 0, mem_role = 'MEMBER'
 	</insert>
 	
+	<delete id="deleteMember" parameterType="Integer">
+		delete from member where mem_no = #{mem_no}
+	</delete>
+	
 </mapper> 	
  	

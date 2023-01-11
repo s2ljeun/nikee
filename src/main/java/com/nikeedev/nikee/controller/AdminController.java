@@ -36,11 +36,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/members")
-	public String goMemberList(HttpSession session) {
-		if (session.getAttribute("allMemberList") == null) {
-			List<MemberDTO> list = memberMapper.listAllMember();
-			session.setAttribute("allMemberList", list);
-		}
+	public String goMemberList(HttpServletRequest req) {
+		List<MemberDTO> list = memberMapper.listAllMember();
+		req.setAttribute("allMemberList", list);
 		
 		return "admin/member_list";
 	}
@@ -53,23 +51,40 @@ public class AdminController {
 	}
 	
 	@PostMapping("/members/edit")
-	public String putMemberOk(HttpServletRequest req, @ModelAttribute MemberDTO mdto) {
+	public String putMemberOk(HttpServletRequest req, HttpSession session, @ModelAttribute MemberDTO mdto) {
 		int res = memberMapper.updateMember(mdto);
-		req.setAttribute("mdto", mdto);
-		req.setAttribute("msg", "회원 수정이 완료되었습니다.");
-		req.setAttribute("url", "/members/edit/"+mdto.getMem_no());
+		if(res>0) {
+			req.setAttribute("mdto", mdto);
+			req.setAttribute("msg", "회원 수정이 완료되었습니다.");
+			req.setAttribute("url", "/members/edit/"+mdto.getMem_no());		
+		}else {
+			req.setAttribute("msg", "회원 수정을 실패했습니다.");
+			req.setAttribute("url", "/members/edit/"+mdto.getMem_no());	
+		}
+		
 		return "message";
 	}
 	
-	@GetMapping("/members/delete/{mem_no}")
+	@PostMapping("/members/delete/{mem_no}")
 	public String delMember(HttpServletRequest req, @PathVariable("mem_no") int mem_no) {
-		req.setAttribute("msg", "회원 삭제가 완료되었습니다.");
-		req.setAttribute("url", "/members");
+		int res = memberMapper.deleteMember(mem_no);
+		if(res>0) {
+			req.setAttribute("msg", "회원 삭제가 완료되었습니다.");
+			req.setAttribute("url", "/members");
+		}else {
+			req.setAttribute("msg", "회원 삭제를 실패했습니다.");
+			req.setAttribute("url", "/members");
+		}
 		return "message";
 	}
 	
 	@GetMapping("/report")
 	public String goReport() {
 		return "admin/report";
+	}
+	
+	@GetMapping("/admin/info")
+	public String goAdminInfo() {
+		return "admin/info";
 	}
 }
