@@ -20,4 +20,16 @@ public class CategoryMapper {
 	public List<CategoryDTO> getAllCategory() {
 		return sqlSession.selectList("listAllCategory");
 	}
+
+	public CategoryDTO getCategoryByNo(int cate_no) {
+		return sqlSession.selectOne("getCategoryByNo", cate_no);
+	}
+
+	public int updateCategory(CategoryDTO cdto) {
+		return sqlSession.update("updateCategory", cdto);
+	}
+
+	public int deleteCategory(int cate_no) {
+		return sqlSession.delete("deleteCategory", cate_no);
+	}
 }

@@ -12,5 +12,17 @@
 		insert into category set cate_name = #{cate_name}
 	</insert>
 	
+	<select id="getCategoryByNo" resultType="categoryDTO" parameterType="Integer">
+		select * from category where cate_no = #{cate_no}
+	</select>
+	
+	<update id="updateCategory" parameterType="categoryDTO">
+		update category set cate_name = #{cate_name} where cate_no = #{cate_no}
+	</update>
+	
+	<delete id="deleteCategory" parameterType="Integer">
+		delete from category where cate_no = #{cate_no}
+	</delete>
+	
 </mapper> 	
  	

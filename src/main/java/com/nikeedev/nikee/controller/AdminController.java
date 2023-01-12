@@ -30,6 +30,7 @@ public class AdminController {
 		return "admin/index";
 	}
 	
+	//카테고리	
 	@GetMapping("/category")
 	public String goCategory(HttpServletRequest req) {
 		List<CategoryDTO> list = categoryMapper.getAllCategory();
@@ -56,6 +57,41 @@ public class AdminController {
 		return "message";
 	}
 	
+	@GetMapping("/category/update/{cate_no}")
+	public String goUpdateCategory(HttpServletRequest req, @PathVariable("cate_no") int cate_no) {
+		CategoryDTO cdto = categoryMapper.getCategoryByNo(cate_no);
+		req.setAttribute("cdto", cdto);
+		return "admin/category_update";
+	}
+	
+	@PostMapping("/category/update")
+	public String updateCategory(HttpServletRequest req, @ModelAttribute CategoryDTO cdto) {
+		int res = categoryMapper.updateCategory(cdto);
+		if(res > 0) {
+			req.setAttribute("msg", "카테고리 수정이 완료되었습니다.");
+			req.setAttribute("url", "/category");
+		}else {
+			req.setAttribute("msg", "카테고리 수정을 실패했습니다.");
+			req.setAttribute("url", "/category");
+		}
+		
+		return "message";
+	}
+	
+	@GetMapping("/category/delete/{cate_no}")
+	public String delCategory(HttpServletRequest req, @PathVariable("cate_no") int cate_no) {
+		int res = categoryMapper.deleteCategory(cate_no);
+		if(res>0) {
+			req.setAttribute("msg", "카테고리 삭제가 완료되었습니다.");
+			req.setAttribute("url", "/category");
+		}else {
+			req.setAttribute("msg", "카테고리 삭제를 실패했습니다.");
+			req.setAttribute("url", "/category");
+		}
+		return "message";
+	}
+	
+	//상품	
 	@GetMapping("/products")
 	public String goProductList() {
 		return "admin/product_list";
