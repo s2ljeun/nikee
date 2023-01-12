@@ -32,38 +32,32 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr align="center">
-					<td>101</td>
-					<td>신발</td>
-					<td>에어포스 1'07</td>
-					<td>22</td>
-					<td>80,000</td>
-					<td>120,000</td>
-					<td>40,000</td>
-					<td>판매중</td>
-					<td>
-						<a href="#">수정</a>
-					</td>
-					<td>
-						<a href="#">삭제</a>
-					</td>
-				</tr>
-				<tr align="center">
-					<td>102</td>
-					<td>셔츠</td>
-					<td>에어포스 1'07</td>
-					<td>0</td>
-					<td>80,000</td>
-					<td>120,000</td>
-					<td>40,000</td>
-					<td>일시품절</td>
-					<td>
-						<a href="#">수정</a>
-					</td>
-					<td>
-						<a href="#">삭제</a>
-					</td>
-				</tr>
+				<c:forEach var="plist" items="${plist}">
+					<tr align="center">
+						<td>${plist.prod_no}</td>
+						<td>${plist.cate_no}</td>
+						<td>${plist.prod_name}</td>
+						<td>${plist.prod_amount}</td>
+						<td>${plist.prod_cost}</td>
+						<td>${plist.prod_price}</td>
+						<td>${plist.prod_income}</td>
+						<c:if test="${plist.prod_sale eq 0}">
+							<td>일시품절</td>
+						</c:if>
+						<c:if test="${plist.prod_sale eq 1}">
+							<td>판매중</td>
+						</c:if>
+						<c:if test="${plist.prod_sale eq 2}">
+							<td>판매중지</td>
+						</c:if>
+						<td>
+							<a href="#">수정</a>
+						</td>
+						<td>
+							<a href="#">삭제</a>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

@@ -44,7 +44,7 @@ public class AdminController {
 	// 카테고리
 	@GetMapping("/category")
 	public String goCategory(HttpServletRequest req) {
-		List<CategoryDTO> list = categoryMapper.getAllCategory();
+		List<CategoryDTO> list = categoryMapper.listAllCategory();
 		req.setAttribute("allCateList", list);
 		return "admin/category_list";
 	}
@@ -104,13 +104,16 @@ public class AdminController {
 
 	// 상품
 	@GetMapping("/products")
-	public String goProductList() {
+	public String goProductList(HttpServletRequest req) {
+		List<ProductDTO> plist = productMapper.listAllProduct();
+		req.setAttribute("plist", plist);
+		
 		return "admin/product_list";
 	}
 
 	@GetMapping("/products/insert")
 	public String goInsertProduct(HttpServletRequest req) {
-		List<CategoryDTO> list = categoryMapper.getAllCategory();
+		List<CategoryDTO> list = categoryMapper.listAllCategory();
 		req.setAttribute("clist", list);
 
 		return "admin/product_insert";

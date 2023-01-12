@@ -17,7 +17,7 @@ public class CategoryMapper {
 		return sqlSession.insert("insertCategory", cdto);
 	}
 
-	public List<CategoryDTO> getAllCategory() {
+	public List<CategoryDTO> listAllCategory() {
 		return sqlSession.selectList("listAllCategory");
 	}
 
