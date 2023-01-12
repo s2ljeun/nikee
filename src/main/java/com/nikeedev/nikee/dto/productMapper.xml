@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nikeedev.nikee.dto.productMapper">
+	<select id="listAllProduct" resultType="productDTO">
+		select * from product
+	</select>
+	
+	<insert id="insertProduct" parameterType="productDTO">
+		insert into product set prod_name = #{prod_name}, prod_amount = #{prod_amount}, prod_cost = #{prod_cost},
+											prod_price = #{prod_price}, prod_income = #{prod_income}, prod_regdate = now(),
+											prod_sale = #{prod_sale}, cate_no = ${cate_no}, prod_img = #{prod_img}
+	</insert>
+	
+</mapper> 	
+ 	
