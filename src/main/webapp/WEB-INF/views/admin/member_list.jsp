@@ -59,7 +59,7 @@ function goEdit(){
 								</c:otherwise>
 							</c:choose></td>
 						<td>
-							<a onclick="location.href='/members/edit/${mdto.mem_no}'">수정</a>
+							<a onclick="location.href='/members/update/${mdto.mem_no}'">수정</a>
 						</td>
 						<td>
 							<c:if test="${mdto.mem_role eq 'ADMIN'}">

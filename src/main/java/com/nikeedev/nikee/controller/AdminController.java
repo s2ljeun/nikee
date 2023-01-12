@@ -115,23 +115,23 @@ public class AdminController {
 		return "admin/member_list";
 	}
 	
-	@GetMapping("/members/edit/{mem_no}")
+	@GetMapping("/members/update/{mem_no}")
 	public String putMember(HttpServletRequest req, @PathVariable("mem_no") int mem_no) {
 		MemberDTO mdto = memberMapper.getMemberByNo(mem_no);
 		req.setAttribute("mdto", mdto);
-		return "admin/member_view";
+		return "admin/member_update";
 	}
 	
-	@PostMapping("/members/edit")
+	@PostMapping("/members/update")
 	public String putMemberOk(HttpServletRequest req, HttpSession session, @ModelAttribute MemberDTO mdto) {
 		int res = memberMapper.updateMember(mdto);
 		if(res>0) {
 			req.setAttribute("mdto", mdto);
 			req.setAttribute("msg", "회원 수정이 완료되었습니다.");
-			req.setAttribute("url", "/members/edit/"+mdto.getMem_no());		
+			req.setAttribute("url", "/members/update/"+mdto.getMem_no());		
 		}else {
 			req.setAttribute("msg", "회원 수정을 실패했습니다.");
-			req.setAttribute("url", "/members/edit/"+mdto.getMem_no());	
+			req.setAttribute("url", "/members/update/"+mdto.getMem_no());	
 		}
 		
 		return "message";
