@@ -3,13 +3,10 @@
 <script>
 function confirmDel(mem_no){
 	if(confirm('회원을 삭제하시겠습니까?')){
-		$('#delete_form'+mem_no).submit();
+		location.href="/members/delete/"+mem_no;
 	}
 }
 
-function goEdit(){
-	document.getElementById('edit_form').submit();
-}
 </script>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -66,9 +63,7 @@ function goEdit(){
 								&nbsp;
 							</c:if>
 							<c:if test="${mdto.mem_role ne 'ADMIN'}">
-								<form id="delete_form${mdto.mem_no}" action="/members/delete/${mdto.mem_no}" method="POST">
 								<a onclick="confirmDel(${mdto.mem_no})">삭제</a>
-							</form>
 							</c:if>
 						</td>
 					</tr>

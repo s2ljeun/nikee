@@ -137,7 +137,7 @@ public class AdminController {
 		return "message";
 	}
 	
-	@PostMapping("/members/delete/{mem_no}")
+	@GetMapping("/members/delete/{mem_no}")
 	public String delMember(HttpServletRequest req, @PathVariable("mem_no") int mem_no) {
 		int res = memberMapper.deleteMember(mem_no);
 		if(res>0) {
