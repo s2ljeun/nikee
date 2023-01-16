@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="top.jsp"%>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<form id="prodForm" name="f" action="/products/insert" method="POST" enctype="multipart/form-data">
+<form id="prodForm" name="f" action="/admin/products/insert" method="POST" enctype="multipart/form-data">
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 		<h1 class="h2">상품 등록</h1>
 	</div>
@@ -58,7 +58,7 @@
 	</div>
 	<div class="btn-group me-2">
 		<button onclick="submitForm()" type="button" class="btn btn-sm btn-outline-secondary">등록</button>
-		<button onclick="location.href='/products'" type="button" class="btn btn-sm btn-outline-secondary">돌아가기</button>
+		<button onclick="location.href='/admin/products'" type="button" class="btn btn-sm btn-outline-secondary">돌아가기</button>
 	</div>
 </form>
 </main>

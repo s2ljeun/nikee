@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="top.jsp"%>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<form name="f" action="/category/update" method="POST">
+<form name="f" action="/admin/category/update" method="POST">
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 		<h1 class="h2">카테고리 수정</h1>
 	</div>
@@ -20,7 +20,7 @@
 	</div>
 	<div class="btn-group me-2">
 		<button type="submit" class="btn btn-sm btn-outline-secondary">수정</button>
-		<button onclick="location.href='/category'" type="button" class="btn btn-sm btn-outline-secondary">돌아가기</button>
+		<button onclick="location.href='/admin/category'" type="button" class="btn btn-sm btn-outline-secondary">돌아가기</button>
 	</div>
 </form>
 </main>

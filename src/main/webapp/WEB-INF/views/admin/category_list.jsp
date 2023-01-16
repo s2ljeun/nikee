@@ -28,7 +28,7 @@
 					<td>0</td>
 					<td>0</td>
 					<td>
-						<a href="/category/update/${cdto.cate_no}">수정</a>
+						<a href="/admin/category/update/${cdto.cate_no}">수정</a>
 					</td>
 					<td>
 						<a onclick="confirmDel(${cdto.cate_no})">삭제</a>
@@ -38,13 +38,13 @@
 			</tbody>
 		</table>
 	</div>
-	<button onclick="location.href='/category/insert'" class="btn btn-sm btn-outline-secondary">카테고리 등록</button>
+	<button onclick="location.href='/admin/category/insert'" class="btn btn-sm btn-outline-secondary">카테고리 등록</button>
 </main>
 
 <script>
 function confirmDel(cate_no){
 	if(confirm('카테고리를 삭제하시겠습니까?')){
-		location.href="/category/delete/"+cate_no;
+		location.href="/admin/category/delete/"+cate_no;
 	}
 }
 </script>

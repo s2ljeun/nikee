@@ -42,68 +42,68 @@ public class AdminController {
 	}
 
 	// 카테고리
-	@GetMapping("/category")
+	@GetMapping("/admin/category")
 	public String goCategory(HttpServletRequest req) {
 		List<CategoryDTO> list = categoryMapper.listAllCategory();
 		req.setAttribute("allCateList", list);
 		return "admin/category_list";
 	}
 
-	@GetMapping("/category/insert")
+	@GetMapping("/admin/category/insert")
 	public String goInsertCategory() {
 		return "admin/category_insert";
 	}
 
-	@PostMapping("/category/insert")
+	@PostMapping("/admin/category/insert")
 	public String insertCategory(HttpServletRequest req, @ModelAttribute CategoryDTO cdto) {
 		int res = categoryMapper.insertCategory(cdto);
 		if (res > 0) {
 			req.setAttribute("msg", "카테고리 추가가 완료되었습니다.");
-			req.setAttribute("url", "/category");
+			req.setAttribute("url", "/admin/category");
 		} else {
 			req.setAttribute("msg", "카테고리 추가를 실패했습니다.");
-			req.setAttribute("url", "/category");
+			req.setAttribute("url", "/admin/category");
 		}
 
 		return "message";
 	}
 
-	@GetMapping("/category/update/{cate_no}")
+	@GetMapping("/admin/category/update/{cate_no}")
 	public String goUpdateCategory(HttpServletRequest req, @PathVariable("cate_no") int cate_no) {
 		CategoryDTO cdto = categoryMapper.getCategoryByNo(cate_no);
 		req.setAttribute("cdto", cdto);
 		return "admin/category_update";
 	}
 
-	@PostMapping("/category/update")
+	@PostMapping("/admin/category/update")
 	public String updateCategory(HttpServletRequest req, @ModelAttribute CategoryDTO cdto) {
 		int res = categoryMapper.updateCategory(cdto);
 		if (res > 0) {
 			req.setAttribute("msg", "카테고리 수정이 완료되었습니다.");
-			req.setAttribute("url", "/category");
+			req.setAttribute("url", "/admin/category");
 		} else {
 			req.setAttribute("msg", "카테고리 수정을 실패했습니다.");
-			req.setAttribute("url", "/category");
+			req.setAttribute("url", "/admin/category");
 		}
 
 		return "message";
 	}
 
-	@GetMapping("/category/delete/{cate_no}")
+	@GetMapping("/admin/category/delete/{cate_no}")
 	public String delCategory(HttpServletRequest req, @PathVariable("cate_no") int cate_no) {
 		int res = categoryMapper.deleteCategory(cate_no);
 		if (res > 0) {
 			req.setAttribute("msg", "카테고리 삭제가 완료되었습니다.");
-			req.setAttribute("url", "/category");
+			req.setAttribute("url", "/admin/category");
 		} else {
 			req.setAttribute("msg", "카테고리 삭제를 실패했습니다.");
-			req.setAttribute("url", "/category");
+			req.setAttribute("url", "/admin/category");
 		}
 		return "message";
 	}
 
 	// 상품
-	@GetMapping("/products")
+	@GetMapping("/admin/products")
 	public String goProductList(HttpServletRequest req) {
 		List<ProductDTO> plist = productMapper.listAllProduct();
 		req.setAttribute("plist", plist);
@@ -111,7 +111,7 @@ public class AdminController {
 		return "admin/product_list";
 	}
 
-	@GetMapping("/products/insert")
+	@GetMapping("/admin/products/insert")
 	public String goInsertProduct(HttpServletRequest req) {
 		List<CategoryDTO> list = categoryMapper.listAllCategory();
 		req.setAttribute("clist", list);
@@ -119,7 +119,7 @@ public class AdminController {
 		return "admin/product_insert";
 	}
 
-	@PostMapping("/products/insert")
+	@PostMapping("/admin/products/insert")
 	public String insertProduct(HttpServletRequest req, @ModelAttribute ProductDTO pdto, BindingResult result) {
 
 		if (result.hasErrors()) {
@@ -139,7 +139,7 @@ public class AdminController {
 		} catch (IOException e) {
 			e.printStackTrace();
 			req.setAttribute("msg", "이미지 업로드 중 오류 발생, 다시 등록해주세요");
-			req.setAttribute("url", "products");
+			req.setAttribute("url", "/admin/products");
 			return "message";
 		}
 
@@ -151,20 +151,20 @@ public class AdminController {
 		int res = productMapper.insertProduct(pdto);
 		if (res > 0) {
 			req.setAttribute("msg", "상품 등록이 완료되었습니다.");
-			req.setAttribute("url", "/products");
+			req.setAttribute("url", "/admin/products");
 		} else {
 			req.setAttribute("msg", "상품 등록에 실패했습니다.");
-			req.setAttribute("url", "/products");
+			req.setAttribute("url", "/admin/products");
 		}
 		return "message";
 	}
 
-	@GetMapping("/order")
+	@GetMapping("/admin/order")
 	public String goOrder() {
 		return "admin/order";
 	}
 
-	@GetMapping("/members")
+	@GetMapping("/admin/members")
 	public String goMemberList(HttpServletRequest req) {
 		List<MemberDTO> list = memberMapper.listAllMember();
 		req.setAttribute("allMemberList", list);
@@ -172,42 +172,42 @@ public class AdminController {
 		return "admin/member_list";
 	}
 
-	@GetMapping("/members/update/{mem_no}")
+	@GetMapping("/admin/members/update/{mem_no}")
 	public String putMember(HttpServletRequest req, @PathVariable("mem_no") int mem_no) {
 		MemberDTO mdto = memberMapper.getMemberByNo(mem_no);
 		req.setAttribute("mdto", mdto);
 		return "admin/member_update";
 	}
 
-	@PostMapping("/members/update")
+	@PostMapping("/admin/members/update")
 	public String putMemberOk(HttpServletRequest req, HttpSession session, @ModelAttribute MemberDTO mdto) {
 		int res = memberMapper.updateMember(mdto);
 		if (res > 0) {
 			req.setAttribute("mdto", mdto);
 			req.setAttribute("msg", "회원 수정이 완료되었습니다.");
-			req.setAttribute("url", "/members/update/" + mdto.getMem_no());
+			req.setAttribute("url", "/admin/members/update/" + mdto.getMem_no());
 		} else {
 			req.setAttribute("msg", "회원 수정을 실패했습니다.");
-			req.setAttribute("url", "/members/update/" + mdto.getMem_no());
+			req.setAttribute("url", "/admin/members/update/" + mdto.getMem_no());
 		}
 
 		return "message";
 	}
 
-	@GetMapping("/members/delete/{mem_no}")
+	@GetMapping("/admin/members/delete/{mem_no}")
 	public String delMember(HttpServletRequest req, @PathVariable("mem_no") int mem_no) {
 		int res = memberMapper.deleteMember(mem_no);
 		if (res > 0) {
 			req.setAttribute("msg", "회원 삭제가 완료되었습니다.");
-			req.setAttribute("url", "/members");
+			req.setAttribute("url", "/admin/members");
 		} else {
 			req.setAttribute("msg", "회원 삭제를 실패했습니다.");
-			req.setAttribute("url", "/members");
+			req.setAttribute("url", "/admin/members");
 		}
 		return "message";
 	}
 
-	@GetMapping("/report")
+	@GetMapping("/admin/report")
 	public String goReport() {
 		return "admin/report";
 	}

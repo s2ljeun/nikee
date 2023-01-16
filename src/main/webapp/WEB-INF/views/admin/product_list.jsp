@@ -61,7 +61,7 @@
 			</tbody>
 		</table>
 	</div>
-	<button onclick="location.href='/products/insert'" class="btn btn-sm btn-outline-secondary">상품 등록</button>
+	<button onclick="location.href='/admin/products/insert'" class="btn btn-sm btn-outline-secondary">상품 등록</button>
 </main>
 </body>
 </html>

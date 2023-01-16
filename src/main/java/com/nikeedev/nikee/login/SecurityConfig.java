@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
         		.csrf().disable() // POST방식 허용
                 .authorizeRequests()
-                	.antMatchers("/", "/index", "/login", "/join").permitAll() // 이 URI는 누구든 접근가능
+                	.antMatchers("/**", "/index", "/login", "/join").permitAll() // 이 URI는 누구든 접근가능
                 	.antMatchers("/admin/**").hasRole("ADMIN") // ADMIN role만 접근 가능
                 	.antMatchers("/member/**").hasRole("MEMBER") // ADMIN role만 접근 가능
                 	//.anyRequest().permitAll() // 어떤 URI든 접근 가능

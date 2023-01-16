@@ -3,7 +3,7 @@
 <script>
 function confirmDel(mem_no){
 	if(confirm('회원을 삭제하시겠습니까?')){
-		location.href="/members/delete/"+mem_no;
+		location.href="/admin/members/delete/"+mem_no;
 	}
 }
 
@@ -56,7 +56,7 @@ function confirmDel(mem_no){
 								</c:otherwise>
 							</c:choose></td>
 						<td>
-							<a onclick="location.href='/members/update/${mdto.mem_no}'">수정</a>
+							<a onclick="location.href='/admin/members/update/${mdto.mem_no}'">수정</a>
 						</td>
 						<td>
 							<c:if test="${mdto.mem_role eq 'ADMIN'}">
