@@ -25,6 +25,13 @@ public class HomeController {
 			session.setAttribute("allProdList", plist);
 		}
 		
+		String web_path = "/resources/img";
+		final String upPath = req.getServletContext().getRealPath(web_path); // 절대경로
+
+		System.out.println("업패스:" + upPath);
+		
+		req.setAttribute("upPath", upPath);
+		
 		return "index";
 	}
 }

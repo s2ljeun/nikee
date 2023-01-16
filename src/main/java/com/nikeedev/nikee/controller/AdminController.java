@@ -129,11 +129,14 @@ public class AdminController {
 		MultipartHttpServletRequest mr = (MultipartHttpServletRequest) req;
 		MultipartFile file = mr.getFile("prod_img");
 		String file_name = file.getOriginalFilename();
-
+		String web_path = "/resources/img";
+		
+		String upPath = req.getServletContext().getRealPath(web_path); // 절대경로
+		
 		// UUID
 		String uuid = UUID.randomUUID().toString();
 		file_name = uuid + '_' + file_name;
-		File target = new File(file_name);
+		File target = new File(upPath + "/" + file_name);
 		try {
 			file.transferTo(target);
 		} catch (IOException e) {
@@ -143,8 +146,9 @@ public class AdminController {
 			return "message";
 		}
 
-		//System.out.println(target); // 파일객체
-		//System.out.println(file); // 멀티파트 파일객체
+		System.out.println(file); // 멀티파트 파일객체
+		System.out.println(target); // 파일객체
+		
 		
 		pdto.setProd_img(file_name);
 		
