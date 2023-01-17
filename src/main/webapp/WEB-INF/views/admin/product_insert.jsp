@@ -27,15 +27,15 @@
 			</tr>
 			<tr>
 				<th scope="col">원가</th>
-				<td><input type="number" id="prod_cost" name="prod_cost" /></td>
+				<td><input onChange="calcIncome()" type="number" id="prod_cost" name="prod_cost" /></td>
 			</tr>
 			<tr>
 				<th scope="col">판매가</th>
-				<td><input type="number" id="prod_price" name="prod_price" /></td>
+				<td><input onChange="calcIncome()" type="number" id="prod_price" name="prod_price" /></td>
 			</tr>
 			<tr>
 				<th scope="col">예상이익</th>
-				<td><input type="number" id="prod_income" name="prod_income" value="1" readonly /></td>
+				<td><input type="number" id="prod_income" name="prod_income" readonly /></td>
 			</tr>
 			<tr>
 				<th scope="col">상태</th>
@@ -64,6 +64,13 @@
 </main>
 
 <script>
+	function calcIncome(){
+		var cost = $("#prod_cost").val();
+		var price = $("#prod_price").val();
+		$("#prod_income").val(price - cost);
+		
+	}
+
 	function submitForm(){
 		var name = $("#prod_name").val();
 		var amount = $("#prod_amount").val();

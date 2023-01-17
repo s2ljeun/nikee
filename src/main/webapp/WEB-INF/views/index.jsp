@@ -66,12 +66,10 @@
     	<c:forEach var="pdto" items="${allProdList}">
 			<div class="col-lg-4">
 				<a href="/${pdto.prod_no}">
-					<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
-						<img src="${upPath}/${pdto.prod_img}" height="140" width="140"/>
-					</svg>
+					<img src="resources/img/${pdto.prod_img}" height="140" width="140"/>
 				</a>
 				<a href="/${pdto.prod_no}">
-					<h2 class="fw-normal">${pdto.prod_name}</h2>
+					<h5 class="fw-normal">${pdto.prod_name}</h5>
 				</a>
 			</div>
 		</c:forEach>
