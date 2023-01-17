@@ -215,6 +215,18 @@ public class AdminController {
 		return "message";
 	}
 	
+	@GetMapping("/admin/products/delete/{prod_no}")
+	public String delProduct(HttpServletRequest req, @PathVariable("prod_no") int prod_no) {
+		int res = productMapper.deleteProduct(prod_no);
+		if (res > 0) {
+			req.setAttribute("msg", "상품 삭제가 완료되었습니다.");
+			req.setAttribute("url", "/admin/products");
+		} else {
+			req.setAttribute("msg", "상품 삭제를 실패했습니다.");
+			req.setAttribute("url", "/admin/products");
+		}
+		return "message";
+	}
 	
 
 	@GetMapping("/admin/order")

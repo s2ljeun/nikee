@@ -38,6 +38,11 @@
 					<a class="nav-link" href="/mypage">마이페이지</a>
 				</li>
 			</c:if>
+			<c:if test="${not empty userDetail}">
+        		<li class="nav-item">
+					<a class="nav-link" href="/cart" >장바구니</a>
+				</li>
+			</c:if>
         </ul>
       </div>
     </div>
