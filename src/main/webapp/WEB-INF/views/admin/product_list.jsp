@@ -51,7 +51,7 @@
 							<td>판매중지</td>
 						</c:if>
 						<td>
-							<a href="#">수정</a>
+							<a href="/admin/products/update/${plist.prod_no}">수정</a>
 						</td>
 						<td>
 							<a href="#">삭제</a>

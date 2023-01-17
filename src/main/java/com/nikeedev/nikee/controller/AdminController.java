@@ -162,6 +162,60 @@ public class AdminController {
 		}
 		return "message";
 	}
+	
+	@GetMapping("/admin/products/update/{prod_no}")
+	public String goUpdateProduct(HttpServletRequest req, @PathVariable("prod_no") int prod_no) {
+		List<CategoryDTO> list = categoryMapper.listAllCategory();
+		ProductDTO pdto = productMapper.getProductByNo(prod_no);
+		
+		req.setAttribute("clist", list);
+		req.setAttribute("pdto", pdto);
+		
+		return "admin/product_update";
+	}
+	
+	@PostMapping("/admin/products/update")
+	public String UpdateProduct(HttpServletRequest req, @ModelAttribute ProductDTO pdto, BindingResult result) {
+
+		if (result.hasErrors()) {
+			pdto.setProd_img("");
+		}
+
+		MultipartHttpServletRequest mr = (MultipartHttpServletRequest) req;
+		MultipartFile file = mr.getFile("prod_img");
+		String file_name = file.getOriginalFilename();
+		String web_path = "/resources/img";
+		
+		String upPath = req.getServletContext().getRealPath(web_path); // 절대경로
+		
+		// UUID
+		String uuid = UUID.randomUUID().toString();
+		file_name = uuid + '_' + file_name;
+		File target = new File(upPath + "/" + file_name);
+		try {
+			file.transferTo(target);
+		} catch (IOException e) {
+			e.printStackTrace();
+			req.setAttribute("msg", "이미지 업로드 중 오류 발생, 다시 등록해주세요");
+			req.setAttribute("url", "/admin/products");
+			return "message";
+		}
+	
+		
+		pdto.setProd_img(file_name);
+		
+		int res = productMapper.updateProduct(pdto);
+		if (res > 0) {
+			req.setAttribute("msg", "상품 수정이 완료되었습니다.");
+			req.setAttribute("url", "/admin/products");
+		} else {
+			req.setAttribute("msg", "상품 수정에 실패했습니다.");
+			req.setAttribute("url", "/admin/products");
+		}
+		return "message";
+	}
+	
+	
 
 	@GetMapping("/admin/order")
 	public String goOrder() {

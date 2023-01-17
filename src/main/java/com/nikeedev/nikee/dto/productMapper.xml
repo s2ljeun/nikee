@@ -14,5 +14,16 @@
 											prod_sale = #{prod_sale}, cate_no = ${cate_no}, prod_img = #{prod_img}
 	</insert>
 	
+	<select id="getProductByNo" parameterType="Integer" resultType="productDTO">
+		select * from product where prod_no = #{prod_no}
+	</select>
+	
+	<update id="updateProduct" parameterType="productDTO">
+		update product set prod_name = #{prod_name}, prod_amount = #{prod_amount}, prod_cost = #{prod_cost},
+											prod_price = #{prod_price}, prod_income = #{prod_income},
+											prod_sale = #{prod_sale}, cate_no = ${cate_no}, prod_img = #{prod_img}
+			where prod_no = #{prod_no}
+	</update>
+	
 </mapper> 	
  	

@@ -20,4 +20,12 @@ public class ProductMapper {
 	public List<ProductDTO> listAllProduct() {
 		return sqlSession.selectList("listAllProduct");
 	}
+
+	public ProductDTO getProductByNo(int prod_no) {
+		return sqlSession.selectOne("getProductByNo", prod_no);
+	}
+
+	public int updateProduct(ProductDTO pdto) {
+		return sqlSession.update("updateProduct", pdto);
+	}
 }
