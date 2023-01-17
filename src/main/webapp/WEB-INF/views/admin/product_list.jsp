@@ -54,7 +54,7 @@
 							<a href="/admin/products/update/${plist.prod_no}">수정</a>
 						</td>
 						<td>
-							<a href="#">삭제</a>
+							<a onclick="confirmDel(${plist.prod_no})">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -63,5 +63,12 @@
 	</div>
 	<button onclick="location.href='/admin/products/insert'" class="btn btn-sm btn-outline-secondary">상품 등록</button>
 </main>
+<script>
+function confirmDel(prod_no){
+	if(confirm('상품을 삭제하시겠습니까?')){
+		location.href="/admin/products/delete/"+prod_no;
+	}
+}
+</script>
 </body>
 </html>

@@ -25,5 +25,9 @@
 			where prod_no = #{prod_no}
 	</update>
 	
+	<delete id="deleteProduct" parameterType="Integer">
+		delete from product where prod_no = #{prod_no}
+	</delete>
+	
 </mapper> 	
  	

@@ -28,4 +28,8 @@ public class ProductMapper {
 	public int updateProduct(ProductDTO pdto) {
 		return sqlSession.update("updateProduct", pdto);
 	}
+
+	public int deleteProduct(int prod_no) {
+		return sqlSession.delete("deleteProduct", prod_no);
+	}
 }
