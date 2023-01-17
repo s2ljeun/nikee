@@ -10,5 +10,10 @@
 			order_name = #{order_name}, order_addr = #{order_addr},
 			mem_no = #{mem_no}
 	</insert>
+	
+	<select id="getOrderListByNo" parameterType="Integer" resultType="OrderDTO">
+		select * from orders where mem_no = #{mem_no}
+	</select>
+	
 </mapper> 	
  	

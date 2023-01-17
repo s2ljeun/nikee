@@ -21,35 +21,24 @@
 					<th scope="col">주문번호</th>
 					<th scope="col">주문일</th>
 					<th scope="col">구매상품</th>
-					<th scope="col">상품갯수</th>
 					<th scope="col">결제금액</th>
 					<th scope="col">상태</th>
 					<th scope="col">취소</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr align="center">
-					<td>1,001</td>
-					<td>2023-01-09</td>
-					<td>에어포스 1'07</td>
-					<td>2</td>
-					<td>40,000</td>
-					<td>결제완료</td>
+				<c:forEach var="odto" items="${orderList}">
+					<tr align="center">
+					<td>${odto.order_no}</td>
+					<td>${odto.order_regdate}</td>
+					<td>구매상품</td>
+					<td>${odto.order_price}</td>
+					<td>상태</td>
 					<td>
 						<a href="#">취소</a>
 					</td>
 				</tr>
-				<tr align="center">
-					<td>1,001</td>
-					<td>2023-01-09</td>
-					<td>에어포스 1'07</td>
-					<td>2</td>
-					<td>40,000</td>
-					<td>배송대기</td>
-					<td>
-						<a href="#">취소</a>
-					</td>
-				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>
