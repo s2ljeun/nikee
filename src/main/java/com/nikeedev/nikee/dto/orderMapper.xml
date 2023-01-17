@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nikeedev.nikee.dto.orderMapper">
+	<insert id="insertOrder" parameterType="OrderDTO">
+		insert into orders set order_price = #{order_price}, order_cost = #{order_cost},
+			order_income = #{order_income}, order_regdate = now(),
+			order_name = #{order_name}, order_addr = #{order_addr},
+			mem_no = #{mem_no}
+	</insert>
+</mapper> 	
+ 	

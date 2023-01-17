@@ -43,5 +43,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		
 		res.sendRedirect(url);
 		req.getSession().setAttribute("userDetail", user);
+		req.getSession().setAttribute("userName", user.getUsername());
 	}
 }
