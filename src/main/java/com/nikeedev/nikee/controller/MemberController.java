@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nikeedev.nikee.dto.MemberDTO;
-import com.nikeedev.nikee.login.LoginIdPwValidator;
+import com.nikeedev.nikee.security.LoginIdPwValidator;
 import com.nikeedev.nikee.service.MemberMapper;
 
 @Controller

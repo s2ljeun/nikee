@@ -1,4 +1,4 @@
-package com.nikeedev.nikee.login;
+package com.nikeedev.nikee.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
