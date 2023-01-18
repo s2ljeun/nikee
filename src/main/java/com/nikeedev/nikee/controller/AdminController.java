@@ -151,8 +151,8 @@ public class AdminController {
 			return "message";
 		}
 
-		System.out.println(file); // 멀티파트 파일객체
-		System.out.println(target); // 파일객체
+		//System.out.println(file); // 멀티파트 파일객체
+		//System.out.println(target); // 파일객체
 		
 		
 		pdto.setProd_img(file_name);
@@ -285,7 +285,9 @@ public class AdminController {
 	}
 
 	@GetMapping("/admin/report")
-	public String goReport() {
+	public String goReport(HttpServletRequest req) {
+		List<OrderDTO> olist = orderMapper.getAllOrderList();
+		req.setAttribute("olist", olist);
 		return "admin/report";
 	}
 
