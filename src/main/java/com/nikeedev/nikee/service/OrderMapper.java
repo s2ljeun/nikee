@@ -21,4 +21,8 @@ public class OrderMapper {
 		return sqlSession.selectList("getOrderListByNo", mem_no);
 	}
 
+	public List<OrderDTO> getAllOrderList() {
+		return sqlSession.selectList("getAllOrderList");
+	}
+
 }

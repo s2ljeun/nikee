@@ -6,7 +6,7 @@
 		<div class="btn-toolbar mb-2 mb-md-0">
 			<select class="form-select" aria-label="Default select example">
 				<option value="order-no" selected>주문번호</option>
-				<option value="date" selected>주문일</option>
+				<option value="date">주문일</option>
 				<option value="product-no">상품번호</option>
 				<option value="product-name">상품명</option>
 				<option value="order-amount">갯수</option>
@@ -24,55 +24,33 @@
 				<tr align="center">
 					<th scope="col">주문번호</th>
 					<th scope="col">주문일</th>
-					<th scope="col">상품번호</th>
 					<th scope="col">상품명</th>
-					<th scope="col">갯수</th>
 					<th scope="col">구매자</th>
+					<th scope="col">주소</th>
 					<th scope="col">원가</th>
 					<th scope="col">판매가</th>
 					<th scope="col">이익</th>
 					<th scope="col">상태</th>
-					<th scope="col">주문확인</th>
 					<th scope="col">취소</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr align="center">
-					<td>1,001</td>
-					<td>2023-01-09</td>
-					<td>101</td>
-					<td>에어포스 1'07</td>
-					<td>2</td>
-					<td>asdfg</td>
-					<td>80,000</td>
-					<td>120,000</td>
-					<td>40,000</td>
-					<td>대기</td>
-					<td>
-						<a href="#">확인</a>
-					</td>
+				<c:forEach var="odto" items="${olist}">
+					<tr align="center">
+					<td>${odto.order_no}</td>
+					<td>${odto.order_regdate}</td>
+					<td>${odto.order_products}</td>
+					<td>${odto.order_name}</td>
+					<td>${odto.order_addr}</td>
+					<td>${odto.order_cost}</td>
+					<td>${odto.order_price}</td>
+					<td>${odto.order_income}</td>
+					<td><a href="#">배송대기</a></td>
 					<td>
 						<a href="#">취소</a>
 					</td>
 				</tr>
-				<tr align="center">
-					<td>1,002</td>
-					<td>2023-01-09</td>
-					<td>101</td>
-					<td>에어포스 1'07</td>
-					<td>2</td>
-					<td>asdfg</td>
-					<td>80,000</td>
-					<td>120,000</td>
-					<td>40,000</td>
-					<td>확정</td>
-					<td>
-						<a href="#">확인</a>
-					</td>
-					<td>
-						<a href="#">취소</a>
-					</td>
-				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

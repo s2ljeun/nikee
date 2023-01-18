@@ -62,7 +62,6 @@ public class HomeController {
 	
 	@PostMapping("/payment/proceed")
 	public String paymentOk(HttpServletRequest req, @ModelAttribute OrderDTO odto) {
-		System.out.println(odto.getMem_no());
 		HttpSession session = req.getSession();
 		
 		User user = (User) session.getAttribute("userDetail");
@@ -72,12 +71,14 @@ public class HomeController {
 		int total_cost = 0;
 		int total_price = 0;
 		int total_income = 0;
+		String order_products = "";
 		
 		// 카트 안 상품목록의 원가, 판매가, 이익을 더한다
 		for(ProductDTO pdto : plist) {
 			total_cost += pdto.getProd_cost();
 			total_price += pdto.getProd_price();
 			total_income += pdto.getProd_income();
+			order_products += pdto.getProd_name() + ",";
 		}
 		
 		// orderDTO 내용을 완성
@@ -85,6 +86,7 @@ public class HomeController {
 		odto.setOrder_cost(total_cost);
 		odto.setOrder_price(total_price);
 		odto.setOrder_income(total_income);
+		odto.setOrder_products(order_products);
 		
 		int res = orderMapper.insertOrder(odto);
 		if (res > 0) {

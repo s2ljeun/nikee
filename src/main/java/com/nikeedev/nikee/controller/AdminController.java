@@ -20,9 +20,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nikeedev.nikee.dto.CategoryDTO;
 import com.nikeedev.nikee.dto.MemberDTO;
+import com.nikeedev.nikee.dto.OrderDTO;
 import com.nikeedev.nikee.dto.ProductDTO;
 import com.nikeedev.nikee.service.CategoryMapper;
 import com.nikeedev.nikee.service.MemberMapper;
+import com.nikeedev.nikee.service.OrderMapper;
 import com.nikeedev.nikee.service.ProductMapper;
 
 @Controller
@@ -35,6 +37,9 @@ public class AdminController {
 	
 	@Autowired
 	private ProductMapper productMapper;
+	
+	@Autowired
+	private OrderMapper orderMapper;
 
 	@GetMapping("/admin")
 	public String goAdmin() {
@@ -230,7 +235,9 @@ public class AdminController {
 	
 
 	@GetMapping("/admin/order")
-	public String goOrder() {
+	public String goOrder(HttpServletRequest req) {
+		List<OrderDTO> olist = orderMapper.getAllOrderList();
+		req.setAttribute("olist", olist);
 		return "admin/order";
 	}
 

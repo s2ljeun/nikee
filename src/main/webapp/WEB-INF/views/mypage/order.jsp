@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="top.jsp"%>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -31,9 +32,19 @@
 					<tr align="center">
 					<td>${odto.order_no}</td>
 					<td>${odto.order_regdate}</td>
-					<td>구매상품</td>
+					<td>
+					<c:choose>
+				        <c:when test="${fn:length(odto.order_products) gt 12}">
+					        <c:out value="${fn:substring(odto.order_products, 0, 11)}"/>...
+				        </c:when>
+				        <c:otherwise>
+					        <c:out value="${odto.order_products}">
+					        </c:out>
+					    </c:otherwise>
+					</c:choose>
+					</td>
 					<td>${odto.order_price}</td>
-					<td>상태</td>
+					<td>결제완료</td>
 					<td>
 						<a href="#">취소</a>
 					</td>

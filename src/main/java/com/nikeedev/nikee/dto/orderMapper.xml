@@ -7,12 +7,16 @@
 	<insert id="insertOrder" parameterType="OrderDTO">
 		insert into orders set order_price = #{order_price}, order_cost = #{order_cost},
 			order_income = #{order_income}, order_regdate = now(),
-			order_name = #{order_name}, order_addr = #{order_addr},
-			mem_no = #{mem_no}
+			order_products = #{order_products}, order_name = #{order_name},
+			order_addr = #{order_addr}, mem_no = #{mem_no}
 	</insert>
 	
 	<select id="getOrderListByNo" parameterType="Integer" resultType="OrderDTO">
 		select * from orders where mem_no = #{mem_no}
+	</select>
+	
+	<select id="getAllOrderList" resultType="OrderDTO">
+		select * from orders
 	</select>
 	
 </mapper> 	

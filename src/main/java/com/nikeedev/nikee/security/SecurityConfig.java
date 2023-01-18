@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             	.antMatchers("/", "/index","/products/**" ,"/login", "/join").permitAll() // 이 URI는 누구든 접근가능
             	.antMatchers("/admin/**").hasRole("ADMIN") // ADMIN role만 접근 가능
-            	.antMatchers("/mypage/**").hasRole("MEMBER") // MEMBER role만 접근 가능
+            	.antMatchers("/mypage/**", "/cart/**", "/payment/**").hasRole("MEMBER") // MEMBER role만 접근 가능
             	//.anyRequest().permitAll() // 어떤 URI든 접근 가능
             	.anyRequest().authenticated() // 어떤 URI로 접근하던 인증이 필요함
             .and()
