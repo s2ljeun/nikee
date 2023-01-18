@@ -44,7 +44,22 @@
 					</c:choose>
 					</td>
 					<td>${odto.order_price}</td>
-					<td>결제완료</td>
+					<td>
+						<c:choose>
+							<c:when test="${odto.order_status eq 0}">
+								결제대기
+							</c:when>
+							<c:when test="${odto.order_status eq 1}">
+								결제완료
+							</c:when>
+							<c:when test="${odto.order_status eq 2}">
+								배송중
+							</c:when>
+							<c:when test="${odto.order_status eq 3}">
+								배송완료
+							</c:when>
+						</c:choose>
+					</td>
 					<td>
 						<a href="#">취소</a>
 					</td>

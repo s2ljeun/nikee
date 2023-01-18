@@ -1,6 +1,7 @@
 package com.nikeedev.nikee.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nikeedev.nikee.dto.MemberDTO;
 import com.nikeedev.nikee.dto.OrderDTO;
@@ -61,9 +63,9 @@ public class HomeController {
 	}
 	
 	@PostMapping("/payment/proceed")
-	public String paymentOk(HttpServletRequest req, @ModelAttribute OrderDTO odto) {
+	@ResponseBody
+	public Map<Object, Object> paymentOk(HttpServletRequest req, @ModelAttribute OrderDTO odto) {
 		HttpSession session = req.getSession();
-		
 		User user = (User) session.getAttribute("userDetail");
 		MemberDTO mdto = memberMapper.getMemberById(user.getUsername());
 		
@@ -87,17 +89,43 @@ public class HomeController {
 		odto.setOrder_price(total_price);
 		odto.setOrder_income(total_income);
 		odto.setOrder_products(order_products);
-		
+		// orderDTO insert
 		int res = orderMapper.insertOrder(odto);
+		Map<Object, Object> map = new HashMap<>();
 		if (res > 0) {
-			req.setAttribute("msg", "주문이 완료되었습니다.");
-			req.setAttribute("url", "/mypage/order");
-			session.removeAttribute("cart");
+			map.put("cnt", 1);
+			// orderDTO의 고유 no값 가져오기
+			OrderDTO odto2 = orderMapper.getOrderLast(mdto.getMem_no());
+			int order_no = odto2.getOrder_no();
+			// oderDTO 내용을 ajax로 넘기기
+			map.put("no", order_no);
+			map.put("products", odto2.getOrder_products());
+			map.put("name", odto2.getOrder_name());
+			map.put("price", odto2.getOrder_price());
+			map.put("addr", odto2.getOrder_addr());
+			//session.removeAttribute("cart");
 		} else {
-			req.setAttribute("msg", "주문을 실패했습니다.");
-			req.setAttribute("url", "/index");
+			map.put("cnt", 0);
+			map.put("msg", "주문을 실패했습니다. 다시 시도해주세요.");
 		}
-		return "message";
+		
+		return map;
+		
+	}
+	
+	@PostMapping("/payment/update")
+	public Map<Object, Object> updateStatus(HttpServletRequest req){
+		int order_no = Integer.parseInt(req.getParameter("order_no"));
+		int status = Integer.parseInt(req.getParameter("status"));
+		Map<Object, Object> map = new HashMap<>();
+		
+		int res = orderMapper.updateStatus(order_no, status);
+		if (res > 0) {
+			map.put("cnt", 1);
+		}else {
+			map.put("cnt", 0);
+		}
+		return map;
 	}
 	
 	@GetMapping("/cart")
