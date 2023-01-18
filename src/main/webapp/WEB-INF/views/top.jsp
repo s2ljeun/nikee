@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>Nikee</title>
 	<!-- Bootstrap & Jquery -->
-	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
-	<script src="resources/js/jquery-3.6.1.min.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
+	<link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+	<script src="/resources/js/jquery-3.6.1.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"></script>
 	
 	<!-- carousel -->
 	<link href="/resources/css/carousel.css" rel="stylesheet">

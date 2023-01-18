@@ -42,7 +42,7 @@ public class HomeController {
 		return "index";
 	}
 	
-	@GetMapping("/{prod_no}")
+	@GetMapping("/products/{prod_no}")
 	public String goProductView(HttpServletRequest req, @PathVariable("prod_no") int prod_no) {
 		ProductDTO pdto = productMapper.getProductByNo(prod_no);
 		req.setAttribute("pdto", pdto);

@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row mb-2" style="margin:100px 0px">
 		<div class="col-md-6" style="text-align:right">
-			<img src="resources/img/${pdto.prod_img}" />
+			<img src="/resources/img/${pdto.prod_img}" />
 		</div>
 		<div class="col-md-6">
 			<form name="f" id="prodForm" method="POST" action="/cart">

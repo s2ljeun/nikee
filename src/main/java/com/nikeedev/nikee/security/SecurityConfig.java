@@ -20,26 +20,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-        		.csrf().disable() // POST방식 허용
-                .authorizeRequests()
-                	.antMatchers("/**", "/index", "/login", "/join").permitAll() // 이 URI는 누구든 접근가능
-                	.antMatchers("/admin/**").hasRole("ADMIN") // ADMIN role만 접근 가능
-                	.antMatchers("/member/**").hasRole("MEMBER") // ADMIN role만 접근 가능
-                	//.anyRequest().permitAll() // 어떤 URI든 접근 가능
-                	.anyRequest().authenticated() // 어떤 URI로 접근하던 인증이 필요함
-                .and()
-                    .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/loginProc") // 이 URI 호출시 스프링 시큐리티로 폼 정보를 제출 / form의 action
-                    .usernameParameter("id") // 폼 input name값: default - username
-                    .passwordParameter("passwd") // 폼 input name값: default - password
-                    .successHandler(loginSuccessHandler()) // 로그인 성공을 다룰 핸들러
-                    .failureHandler(loginFailHandler()) // 로그인 실패를 다룰 핸들러
-                    .permitAll()
-                .and()
-                    .logout()
-                    .logoutSuccessUrl("/") // 로그아웃 성공시 이동할 URL
-        			.logoutRequestMatcher(new AntPathRequestMatcher("/logoutProc")); // 이 URI 호출시 로그아웃
+    		.csrf().disable() // POST방식 허용
+            .authorizeRequests()
+            	.antMatchers("/", "/index","/products/**" ,"/login", "/join").permitAll() // 이 URI는 누구든 접근가능
+            	.antMatchers("/admin/**").hasRole("ADMIN") // ADMIN role만 접근 가능
+            	.antMatchers("/mypage/**").hasRole("MEMBER") // MEMBER role만 접근 가능
+            	//.anyRequest().permitAll() // 어떤 URI든 접근 가능
+            	.anyRequest().authenticated() // 어떤 URI로 접근하던 인증이 필요함
+            .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/loginProc") // 이 URI 호출시 스프링 시큐리티로 폼 정보를 제출 / form의 action
+                .usernameParameter("id") // 폼 input name값: default - username
+                .passwordParameter("passwd") // 폼 input name값: default - password
+                .successHandler(loginSuccessHandler()) // 로그인 성공을 다룰 핸들러
+                .failureHandler(loginFailHandler()) // 로그인 실패를 다룰 핸들러
+                .permitAll()
+            .and()
+                .logout()
+                .logoutSuccessUrl("/") // 로그아웃 성공시 이동할 URL
+    			.logoutRequestMatcher(new AntPathRequestMatcher("/logoutProc")); // 이 URI 호출시 로그아웃
     }
     
     //인증 예외 추가

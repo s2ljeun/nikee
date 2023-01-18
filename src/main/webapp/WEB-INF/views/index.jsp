@@ -65,10 +65,10 @@
     <div class="row">
     	<c:forEach var="pdto" items="${allProdList}">
 			<div class="col-lg-4">
-				<a href="/${pdto.prod_no}">
+				<a href="/products/${pdto.prod_no}">
 					<img src="resources/img/${pdto.prod_img}" height="140" width="140"/>
 				</a>
-				<a href="/${pdto.prod_no}">
+				<a href="/products/${pdto.prod_no}">
 					<h5 class="fw-normal">${pdto.prod_name}</h5>
 				</a>
 			</div>
