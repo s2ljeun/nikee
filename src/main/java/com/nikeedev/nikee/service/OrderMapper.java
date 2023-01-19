@@ -31,9 +31,10 @@ public class OrderMapper {
 		return sqlSession.selectOne("getOrderLast", mem_no);
 	}
 
-	public int updateStatus(int order_no, int status) {
-		Map<String, Integer> map = new HashMap<>();
+	public int updateStatus(int order_no, String imp_uid, int status) {
+		Map<String, Object> map = new HashMap<>();
 		map.put("order_no", order_no);
+		map.put("imp_uid", imp_uid);
 		map.put("status", status);
 		return sqlSession.update("updateStatus", map);
 	}

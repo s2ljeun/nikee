@@ -24,7 +24,7 @@
 	</select>
 	
 	<update id="updateStatus" parameterType="Map">
-		update orders set order_status = #{status} where order_no = #{order_no}
+		update orders set order_status = #{status}, imp_uid = #{imp_uid} where order_no = #{order_no}
 	</update>
 	
 </mapper> 	

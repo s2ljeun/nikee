@@ -113,13 +113,17 @@ public class HomeController {
 		
 	}
 	
-	@PostMapping("/payment/update")
+	@PostMapping("/payment/succeed")
+	@ResponseBody
 	public Map<Object, Object> updateStatus(HttpServletRequest req){
-		int order_no = Integer.parseInt(req.getParameter("order_no"));
-		int status = Integer.parseInt(req.getParameter("status"));
-		Map<Object, Object> map = new HashMap<>();
+		String imp_uid = req.getParameter("imp_uid");
+		int order_no = Integer.parseInt(req.getParameter("merchant_uid"));
+		int status = 1;
 		
-		int res = orderMapper.updateStatus(order_no, status);
+		Map<Object, Object> map = new HashMap<>();
+
+		//주문번호, 결제고유번호, 결제상태를 인자로 넘겨준다
+		int res = orderMapper.updateStatus(order_no, imp_uid, status);
 		if (res > 0) {
 			map.put("cnt", 1);
 		}else {

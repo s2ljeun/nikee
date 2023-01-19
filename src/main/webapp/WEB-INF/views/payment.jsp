@@ -61,7 +61,6 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 
-
 <script>
 	function proceedPay(){
 		$.ajax({  
@@ -85,33 +84,6 @@
 		
 		
 	}
-	
-	function updateStatus(order_no, status){
-		$.ajax({  
-			 url : '/payment/update',
-			 type : 'POST',
-			 async : true,
-			 dataType : "Json", 
-			 data :{
-				 order_no: order_no,
-				 status: status
-			 },
-			 success : function(data){
-				 if(data.cnt > 0){
-					 var msg = '결제가 완료되었습니다.'
-					 alert(msg)
-					 location.href="/mypage"
-				 }else{
-					 var msg = '에러가 발생했습니다.'
-					 alert(msg)
-					 location.href="/index"
-				 }
-			 }, 
-			 error : function (e){
-				 alert("에러")
-			 }
-			}); 
-	}
 
     function requestPay(data) {
     	var IMP = window.IMP; // 생략 가능
@@ -121,17 +93,37 @@
       IMP.request_pay({ // param
           pg: "html5_inicis.INIpayTest",
           pay_method: "card",
-          merchant_uid: data.no, //주문 고유번호
+          merchant_uid: data.no, //주문(db에서 불러옴) 고유번호
           name: data.products,
           amount: data.price,
-          //buyer_email: "gildong@gmail.com",
+          buyer_email: "",
           buyer_name: data.name,
           //buyer_tel: "010-4242-4242",
           buyer_addr: data.addr,
           //buyer_postcode: "01181"
       }, function (rsp) { // callback
           if (rsp.success) {
-        	  updateStatus(data.no, 1)
+        	// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+              // jQuery로 HTTP 요청
+              jQuery.ajax({
+                url: "/payment/succeed", 
+                method: "POST",
+                //headers: { "Content-Type": "application/json" }, 에러
+                data: {
+                  imp_uid: rsp.imp_uid,            // 결제 고유번호
+                  merchant_uid: rsp.merchant_uid   // 주문번호
+                }
+              }).done(function (data) {
+            	  alert(data)
+            	  if(data.cnt > 0){
+            		var msg = '결제가 완료되었습니다.'
+          			alert(msg)
+            		location.href="/mypage/order"
+            	  }else{
+            		var msg = '에러가 발생했습니다.'
+                	alert(msg)
+            	  }
+              })
           } else {
         	  var msg = '결제에 실패하였습니다.';
               msg += '에러내용 : ' + rsp.error_msg;

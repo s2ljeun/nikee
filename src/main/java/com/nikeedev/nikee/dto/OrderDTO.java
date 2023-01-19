@@ -16,5 +16,7 @@ public class OrderDTO {
 	private String order_name;
 	private String order_addr;
 	private String order_products;
+	private String order_status;
+	private String imp_uid;
 	private int mem_no;
 }
