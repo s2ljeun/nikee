@@ -146,10 +146,11 @@ public class HomeController {
 		ProductDTO pdto = productMapper.getProductByNo(prod_no);	
 		
 		// 갯수 세팅
-		pdto.setProd_amount(Integer.parseInt(map.get("prod_amount")));
+		pdto.setProd_amount(prod_amount);
 
-		// 총 원가, 이익 계산 후 세팅
+		// 총 원가, 판매가, 이익 계산 후 세팅
 		pdto.setProd_cost(pdto.getProd_cost()*prod_amount);
+		pdto.setProd_price(pdto.getProd_price() * prod_amount);
 		pdto.setProd_income(pdto.getProd_price()*prod_amount - pdto.getProd_cost());
 		
 		HttpSession session = req.getSession();
@@ -160,6 +161,21 @@ public class HomeController {
 			cart = (List<ProductDTO>) session.getAttribute("cart");
 		}
 		
+		for(ProductDTO dto : cart) {
+			// 카트에 같은 상품이 존재한다면
+			if(dto.getProd_no() == prod_no) {
+				dto.setProd_amount(dto.getProd_amount() + prod_amount); // 갯수 세팅
+				dto.setProd_cost(dto.getProd_cost() + pdto.getProd_cost()); // 원가 세팅
+				dto.setProd_price(dto.getProd_price() + pdto.getProd_price()); // 판매가 세팅
+				
+				session.setAttribute("cart", cart);
+				
+				req.setAttribute("msg", "장바구니에 추가되었습니다.");
+				req.setAttribute("url", "/index");
+				
+				return "message";
+			}
+		}
 		cart.add(pdto);
 		session.setAttribute("cart", cart);
 		
