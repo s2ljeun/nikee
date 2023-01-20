@@ -168,4 +168,19 @@ public class HomeController {
 		
 		return "message";
 	}
+	
+	@GetMapping("/cart/delete/{prod_no}")
+	public String deleteCart(HttpServletRequest req, @PathVariable("prod_no") int prod_no) {
+		HttpSession session = req.getSession();
+		List<ProductDTO> cart = (List<ProductDTO>) session.getAttribute("cart");
+		for(int i=0; i<cart.size(); i++) {
+			ProductDTO pdto = cart.get(i);
+			if(pdto.getProd_no() == prod_no) {
+				cart.remove(i);
+			}else {
+			}
+		}
+		session.setAttribute("cart", cart);
+		return "cart";
+	}
 }

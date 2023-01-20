@@ -17,7 +17,13 @@
 							<div>
 								<h6 class="my-0">${pdto.prod_name}</h6>
 								<small class="text-muted">${pdto.prod_amount}개</small>
-							</div> <span class="text-muted">${pdto.prod_price}원</span>
+							</div>
+							<div>
+							<small class="text-muted"><a onClick="confirmDel(${pdto.prod_no})"> ❌ </a></small>
+							<h6 class="text-muted">${pdto.prod_price}원</h6>
+									
+							</div>
+							
 						</li>
 						<c:set var="totalPrice" value="${totalPrice + pdto.prod_price*pdto.prod_amount}"/>
 					</c:forEach>
@@ -29,3 +35,10 @@
 		<button type="button" onclick="location.href='/payment'" class="w-100 btn btn-lg btn-light">결제하기</button>
 	</main>
 </div>
+<script>
+function confirmDel(prod_no){
+	if(confirm('장바구니에서 상품을 삭제하시겠습니까?')){
+		location.href="/cart/delete/"+prod_no;
+	}
+}
+</script>
