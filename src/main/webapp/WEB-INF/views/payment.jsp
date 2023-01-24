@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ include file="top.jsp"%>
 <div class="container">
@@ -10,7 +11,8 @@
 		<div class="row g-5">
 			<div class="col-md-5 col-lg-4 order-md-last">
 				<h4 class="d-flex justify-content-between align-items-center mb-3">
-					<span class="text-primary">장바구니</span> <span class="badge bg-primary rounded-pill">${fn:length(cart)}</span>
+					<span class="text-primary">장바구니</span> <span
+						class="badge bg-primary rounded-pill">${fn:length(cart)}</span>
 				</h4>
 				<ul class="list-group mb-3">
 					<c:forEach var="pdto" items="${cart}">
@@ -23,43 +25,55 @@
 						<c:set var="totalPrice" value="${totalPrice + pdto.prod_price}" />
 					</c:forEach>
 
-					<li class="list-group-item d-flex justify-content-between"><span>총합 (KRW))</span> <strong>${totalPrice}원</strong></li>
+					<li class="list-group-item d-flex justify-content-between"><span>총합
+							(KRW))</span> <strong>${totalPrice}원</strong></li>
 				</ul>
 
 			</div>
 			<div class="col-md-7 col-lg-8">
 				<h4 class="mb-3">주문자 정보</h4>
-				<form name="orderForm" id="orderForm" method="POST" class="needs-validation" novalidate="">
+				<form name="orderForm" id="orderForm" method="POST"
+					class="needs-validation" novalidate="">
 					<div class="row g-3">
 						<input type="hidden" name="order_prod">
 
 						<div class="col-12">
-							<label for="order_name" class="form-label">이름</label> <input type="text" class="form-control" id="order_name" name="order_name" placeholder="" value="" required="">
+							<label for="order_name" class="form-label">이름</label> <input
+								type="text" class="form-control" id="order_name"
+								name="order_name" placeholder="" value="" required="">
 						</div>
 						<div class="col-12">
-							<label for="order_addr" class="form-label">주소</label> <input type="text" class="form-control" id="order_addr" name="order_addr" placeholder="1234 Main St" required="">
+							<label for="order_addr" class="form-label">주소</label> <input
+								type="text" class="form-control" id="order_addr"
+								name="order_addr" placeholder="1234 Main St" required="">
 						</div>
 					</div>
 					<hr class="my-4">
 
 					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="same-address"> <label class="form-check-label" for="same-address">회원 정보와 주문자 정보가 동일합니다.</label>
+						<input type="checkbox" class="form-check-input" id="same-address">
+						<label class="form-check-label" for="same-address">회원 정보와
+							주문자 정보가 동일합니다.</label>
 					</div>
 
 					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="save-info"> <label class="form-check-label" for="save-info">이 정보를 다음에도 사용</label>
+						<input type="checkbox" class="form-check-input" id="save-info">
+						<label class="form-check-label" for="save-info">이 정보를 다음에도
+							사용</label>
 					</div>
 
 					<hr class="my-4">
 
-					<button class="w-100 btn btn-primary btn-lg" type="button" onClick="proceedPay()">결제하기</button>
+					<button class="w-100 btn btn-primary btn-lg" type="button"
+						onClick="proceedPay()">결제하기</button>
 				</form>
 			</div>
 		</div>
 	</main>
 </div>
 <!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 
 <script>
 	function proceedPay(){
@@ -82,8 +96,8 @@
 		 }
 		}); 
 		
-		
 	}
+
 
     function requestPay(data) {
     	var IMP = window.IMP; // 생략 가능
@@ -106,23 +120,15 @@
         	// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
               // jQuery로 HTTP 요청
               jQuery.ajax({
-                url: "/payment/succeed", 
+                url: "/payment/verify/"+ rsp.imp_uid, 
                 method: "POST",
-                //headers: { "Content-Type": "application/json" }, 에러
-                data: {
-                  imp_uid: rsp.imp_uid,            // 결제 고유번호
-                  merchant_uid: rsp.merchant_uid   // 주문번호
-                }
               }).done(function (data) {
-            	  alert(data)
-            	  if(data.cnt > 0){
-            		var msg = '결제가 완료되었습니다.'
-          			alert(msg)
-            		location.href="/mypage/order"
-            	  }else{
-            		var msg = '에러가 발생했습니다.'
-                	alert(msg)
-            	  }
+            	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
+            	  if(rsp.paid_amount == data.response.amount){
+  		        	succeedPay(rsp.imp_uid, rsp.merchant_uid);
+  	        	} else {
+  	        		alert("결제 검증 실패");
+  	        	}
               })
           } else {
         	  var msg = '결제에 실패하였습니다.';
@@ -131,4 +137,33 @@
           }
       });
     }
+    
+    
+	
+	function succeedPay(imp_uid, merchant_uid){
+		$.ajax({  
+			 url : '/payment/succeed',
+			 type : 'POST',
+			 async : true,
+			 dataType : "Json", 
+			 data :{
+				imp_uid: imp_uid,            // 결제 고유번호
+	            merchant_uid: merchant_uid   // 주문번호 
+			 },
+			 success : function(data){
+				 if(data.cnt > 0){
+	            	var msg = '결제 및 검증이 완료되었습니다.'
+	          		alert(msg)
+	            	location.href="/mypage/order"
+	            }else{
+	            	var msg = '결제가 완료되었으나 에러가 발생했습니다.'
+	               	alert(msg)
+	               	location.href="/mypage/order"
+			 }
+			 }, 
+			 error : function (e){
+				 alert("에러")
+			 }
+		});
+	}
   </script>
