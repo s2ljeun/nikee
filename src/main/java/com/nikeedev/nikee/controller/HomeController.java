@@ -1,8 +1,10 @@
 package com.nikeedev.nikee.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +27,24 @@ import com.nikeedev.nikee.dto.ProductDTO;
 import com.nikeedev.nikee.service.MemberMapper;
 import com.nikeedev.nikee.service.OrderMapper;
 import com.nikeedev.nikee.service.ProductMapper;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 @Controller
 public class HomeController {
+	// Iamport
+	private IamportClient iamportClient;
+	private IamportAPI iamportApi;
+	
+	public HomeController(IamportAPI api) {
+		this.iamportApi = api;
+		String IAMPORT_API = api.getApi();
+		String IAMPORT_API_SECRET = api.getApiSecret();
+		this.iamportClient = new IamportClient(IAMPORT_API,IAMPORT_API_SECRET);
+	}
+	
 	@Autowired
 	private ProductMapper productMapper;
 	
@@ -113,9 +131,18 @@ public class HomeController {
 		
 	}
 	
+	@PostMapping("/payment/verify/{imp_uid}")
+	@ResponseBody
+	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session
+									, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException{
+		
+		return iamportClient.paymentByImpUid(imp_uid);
+	}
+	
 	@PostMapping("/payment/succeed")
 	@ResponseBody
 	public Map<Object, Object> updateStatus(HttpServletRequest req){
+		
 		String imp_uid = req.getParameter("imp_uid");
 		int order_no = Integer.parseInt(req.getParameter("merchant_uid"));
 		int status = 1;
@@ -129,6 +156,11 @@ public class HomeController {
 		}else {
 			map.put("cnt", 0);
 		}
+		
+		//장바구니 지우기
+		HttpSession session = req.getSession();
+		session.removeAttribute("cart");
+		
 		return map;
 	}
 	
