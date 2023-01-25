@@ -31,7 +31,6 @@
 					<th scope="col">판매가</th>
 					<th scope="col">이익</th>
 					<th scope="col">상태</th>
-					<th scope="col">취소</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,10 +44,7 @@
 					<td>${odto.order_cost}</td>
 					<td>${odto.order_price}</td>
 					<td>${odto.order_income}</td>
-					<td><a href="#">배송대기</a></td>
-					<td>
-						<a href="#">취소</a>
-					</td>
+					<td>배송대기</td>
 				</tr>
 				</c:forEach>
 			</tbody>

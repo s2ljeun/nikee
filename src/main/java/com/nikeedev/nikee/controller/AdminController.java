@@ -41,10 +41,6 @@ public class AdminController {
 	@Autowired
 	private OrderMapper orderMapper;
 
-	@GetMapping("/admin")
-	public String goAdmin() {
-		return "admin/index";
-	}
 
 	// 카테고리
 	@GetMapping("/admin/category")
@@ -234,7 +230,7 @@ public class AdminController {
 	}
 	
 
-	@GetMapping("/admin/order")
+	@GetMapping(value={"/admin", "/admin/order"})
 	public String goOrder(HttpServletRequest req) {
 		List<OrderDTO> olist = orderMapper.getAllOrderList();
 		req.setAttribute("olist", olist);

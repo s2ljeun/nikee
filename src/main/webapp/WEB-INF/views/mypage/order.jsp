@@ -24,7 +24,6 @@
 					<th scope="col">구매상품</th>
 					<th scope="col">결제금액</th>
 					<th scope="col">상태</th>
-					<th scope="col">취소</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -59,9 +58,6 @@
 								배송완료
 							</c:when>
 						</c:choose>
-					</td>
-					<td>
-						<a href="#">취소</a>
 					</td>
 				</tr>
 				</c:forEach>
